@@ -27,6 +27,7 @@ Se valorará:
 - La arquitectura del proyecto
 - La arquitectura de componentes que se creen
 - La claridad del codigo y de las hojas de estilo
+- La fidelidad del resultado (tanto dekstop como responsive)
 
 Se tendrá en cuenta también:
 - Código preparado para producción
