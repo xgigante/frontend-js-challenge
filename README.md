@@ -16,12 +16,12 @@ Encontrarás todos los assets necesarios para la realización de la prueba dentr
 El sidebar es full height, aunque en el diseño no lo parezca, lo hemos hecho así para que se pudiese apreciar mejor la sección de las noticias.
 
 ## Tareas previas
-- Crear un repositorio de GIT (Bitbucket, GitHub o similar) con acceso público uno para backend y otro para frontend
+- Crear un repositorio de GIT (Bitbucket, GitHub o similar) con acceso público.
 - Antes de empezar las tareas envíanos por e-mail el enlace del repositorio.
 - Haz los commits que consideres oportunos conforme vayas desarrollando las diferentes tareas (Mínimo un commit por tarea).
 
 ## Que se espera de ti
-**Puedes usar cualquier versión de Angular 2+**
+**Puedes usar cualquier versión de Angular**
 
 Se valorará:
 - La arquitectura del proyecto
@@ -33,6 +33,8 @@ Se tendrá en cuenta también:
 - Código preparado para producción
 - Entregar una solución que se pueda escalar o añadir funcionalidad con facilidad
 - Sientete libre a la hora de añadir cualquier mejora de UX/UI
+- Utilización de preprocesadores o postprocesadores de CSS
+- Utilización de patrones de arquitectura de datos
 
 *[BONUS]*: Nuestro departamento de UX no ha tenido tiempo en pensar en las animaciones. Queda de tu parte añadir las que consideres necesarias.
 
