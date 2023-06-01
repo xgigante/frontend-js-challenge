@@ -1,7 +1,9 @@
 # Frontend JS Challenge
 ![atrends](./assets/readme/first.png)
 
-Nuestros ingenieros de backend han implementado una sencilla API para acceder a la información y está accesible de manera pública en https://challenge.avantio.pro, sin embargo necesitarás enviar el token que se te ha enviado junto al enlace a este repositorio en una cabecera concreta de cada request, esta cabecera es `X-Avantio-Auth`.
+Nuestros ingenieros de backend han implementado una sencilla API para acceder a la información y está accesible de manera pública en https://challenge.avantio.pro, sin embargo necesitarás enviar el token que te hemos enviado junto al enlace a este repositorio en una cabecera concreta de cada request, esta cabecera es `X-Avantio-Auth`.
+
+Esta cabecera ya se está enviando en cada petición que lo necesita gracias al interceptor ubicado en el fichero <code>[src/app/trends/auth-interceptor.ts](src/app/trends/auth-interceptor.ts)</code> y a las variables de entorno definidas en los ficheros <code>[src/environments/environment.ts](src/environments/environment.ts)</code> y <code>[src/environments/environment.prod.ts](src/environments/environment.prod.ts)</code>. Lo único que tendrás que hacer respecto a esto es copiar el token que te hemos enviado en la variable de entorno `avantioAPIAuthToken` en cada uno de estos dos ficheros.
 
 Nuestros amigos de UX/UI nos han dejado un diseño preparado en figma, para tener acceso a toda la funcionalidad de la plataforma es necesario el registro, es muy similar a Invision o Zeplin, así que si no lo has utilizado nunca no te preocupes, te harás con ella enseguida: https://www.figma.com/file/OZo8wGsr4aDns0lnOqYk39/Frontend-Challenge-atrendsPRO?node-id=0%3A1
 
@@ -11,32 +13,40 @@ En el diseño se aprecian dos vistas:
 
 Dentro del detalle de la noticia tenemos un slide-out que nos vale tanto para editar la noticia como para crearla.
 
-Encontrarás todos los assets necesarios para la realización de la prueba dentro de `assets/assets.zip`
+Encontrarás todos los assets necesarios para la realización de la prueba dentro del directorio <code>[src/assets](src/assets)</code> del proyecto.
 
 El sidebar es full height, aunque en el diseño no lo parezca, lo hemos hecho así para que se pudiese apreciar mejor la sección de las noticias.
 
+En este repositorio se incluyen todos los ficheros necesarios para arrancar una aplicación de Angular en local que incluye: la vista del listado de noticias y la vista de detalle de cada noticia pulsando sobre ella.
+
+Deberás modificar y/o ampliar el código existente para implementar las siguientes funcionalidades siguiendo el diseño indicado:
+
+- Creación de noticias.
+- Modificación de noticias.
+- Eliminación de noticias.
+
 ## Tareas previas
-- Crear un repositorio de GIT (Bitbucket, GitHub o similar) con acceso público.
+- Clonar este repositorio y hacerlo público para que podamos acceder a él.
 - Antes de empezar las tareas envíanos por e-mail el enlace del repositorio.
 - Haz los commits que consideres oportunos conforme vayas desarrollando las diferentes tareas (Mínimo un commit por tarea).
 
 ## Que se espera de ti
-**Puedes usar cualquier versión de Angular**
+
+> 💡 **Puedes usar cualquier versión de Angular.**
 
 Se valorará:
-- La arquitectura del proyecto
-- La arquitectura de componentes que se creen
-- La claridad del codigo y de las hojas de estilo
-- La fidelidad del resultado (tanto dekstop como responsive)
+- La arquitectura del proyecto.
+- La arquitectura de componentes.
+- La claridad del código y de las hojas de estilo.
+- La fidelidad del resultado (tanto desktop como responsive).
 
 Se tendrá en cuenta también:
-- Código preparado para producción
-- Entregar una solución que se pueda escalar o añadir funcionalidad con facilidad
-- Sientete libre a la hora de añadir cualquier mejora de UX/UI
-- Utilización de preprocesadores o postprocesadores de CSS
-- Utilización de patrones de arquitectura de datos
+- Código preparado para producción.
+- Entregar una solución que se pueda escalar o añadir funcionalidad con facilidad.
+- Siéntete libre a la hora de añadir cualquier mejora de UX/UI.
+- Utilización de patrones de arquitectura de datos.
 
-*[BONUS]*: Nuestro departamento de UX no ha tenido tiempo en pensar en las animaciones. Queda de tu parte añadir las que consideres necesarias.
+> ⭐️ **BONUS:** *Nuestro departamento de UX no ha tenido tiempo en pensar en las animaciones. Queda de tu parte añadir las que consideres necesarias.*
 
 ## Especificación del API
 ### Listado de noticias
