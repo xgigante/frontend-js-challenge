@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppTrendsModule } from './trends';
 import { httpInterceptorProviders } from './app-http-interceptors';
 import { reducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs, 'es');
@@ -32,7 +34,11 @@ registerLocaleData(localeEs, 'es');
     AppMenuModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, httpInterceptorProviders],
   bootstrap: [AppComponent],
