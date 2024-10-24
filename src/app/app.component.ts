@@ -1,41 +1,29 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { delay } from 'rxjs/operators';
-
 import { CustomBreakpointObserver } from './layout';
 import { selectIsLoadingState } from './store/selectors';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <app-progress-bar
-      *ngIf="isLoading$ | async"
-      class="app-progress-bar"
-    ></app-progress-bar>
-    <header class="app-header">
-      <a routerLink="/">
-        <img
-          *ngIf="isSmallScreen$ | async"
-          class="app-logo"
-          src="assets/Logos/aTrendsPRO.svg"
-          alt="Logo Avantio Trends PRO"
-        />
-      </a>
-      <div class="app-current-date">
-        <span>{{ currentDate | date: 'dd MMMM yyyy' }}</span>
-      </div>
-    </header>
-    <nav class="app-navigation">
-      <app-menu-small *ngIf="isSmallScreen$ | async"></app-menu-small>
-      <app-menu-medium *ngIf="isMediumScreen$ | async"></app-menu-medium>
-      <app-menu-large *ngIf="isLargeScreen$ | async"></app-menu-large>
-    </nav>
-    <main class="app-main-content">
-      <router-outlet></router-outlet>
-    </main>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
+/**
+ * The AppComponent is the root component of the application.
+ * It initializes several observables to track screen size and loading state.
+ *
+ * @property {number} currentDate - The current date and time in milliseconds since the Unix epoch.
+ * @property {Observable<boolean>} isSmallScreen$ - Observable that emits true if the screen size is small.
+ * @property {Observable<boolean>} isMediumScreen$ - Observable that emits true if the screen size is medium.
+ * @property {Observable<boolean>} isLargeScreen$ - Observable that emits true if the screen size is large.
+ * @property {Observable<boolean>} isLoading$ - Observable that emits the loading state of the application, with a delay to prevent ExpressionChangedAfterItHasBeenCheckedError.
+ *
+ * @constructor
+ * @param {CustomBreakpointObserver} breakpointsObserver - Service to observe screen size changes.
+ * @param {Store} store - NgRx store to select application state.
+ */
 export class AppComponent {
   currentDate = Date.now();
   isSmallScreen$ = this.breakpointsObserver.isSmall$;
