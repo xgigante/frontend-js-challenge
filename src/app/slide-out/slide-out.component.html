@@ -1,0 +1,5 @@
+<div class="slide-out__content" [class.open]="isOpen">
+  <p>slide-out works!</p>
+  <button type="button" (click)="close()">Cancelar</button>
+</div>
+<div class="slide-out__overlay" [class.open]="isOpen" (click)="close()"></div>

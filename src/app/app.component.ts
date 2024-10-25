@@ -1,8 +1,10 @@
+import { SlideOutService } from './slide-out/slide-out.service';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { delay } from 'rxjs/operators';
 import { CustomBreakpointObserver } from './layout';
 import { selectIsLoadingState } from './store/selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,15 +27,34 @@ import { selectIsLoadingState } from './store/selectors';
  * @param {Store} store - NgRx store to select application state.
  */
 export class AppComponent {
-  currentDate = Date.now();
-  isSmallScreen$ = this.breakpointsObserver.isSmall$;
-  isMediumScreen$ = this.breakpointsObserver.isMedium$;
-  isLargeScreen$ = this.breakpointsObserver.isLarge$;
+  currentDate: number = Date.now();
+  isSmallScreen$: Observable<boolean> = this.breakpointsObserver.isSmall$;
+  isMediumScreen$: Observable<boolean> = this.breakpointsObserver.isMedium$;
+  isLargeScreen$: Observable<boolean> = this.breakpointsObserver.isLarge$;
   // The delay prevents ExpressionChangedAfterItHasBeenCheckedError
-  isLoading$ = this.store.select(selectIsLoadingState).pipe(delay(0));
+  isLoading$: Observable<boolean> = this.store
+    .select(selectIsLoadingState)
+    .pipe(delay(0));
+  isSlideOutOpen$: Observable<boolean> = this.slideOutService.isOpen$;
 
   constructor(
     private breakpointsObserver: CustomBreakpointObserver,
-    private store: Store
+    private store: Store,
+    private slideOutService: SlideOutService
   ) {}
+
+  /**
+   * Opens the slide-out panel using the slideOutService.
+   * This method triggers the slide-out panel to become visible.
+   */
+  openSlideOut(): void {
+    this.slideOutService.openSlideOut();
+  }
+
+  /**
+   * Closes the slide-out panel by invoking the closeSlideOut method of the slideOutService.
+   */
+  closeSlideOut(): void {
+    this.slideOutService.closeSlideOut();
+  }
 }

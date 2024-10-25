@@ -11,8 +11,9 @@
       alt="Logo Avantio Trends PRO"
     />
   </a>
+  <button (click)="openSlideOut()">Crear Noticia</button>
   <div class="app-current-date">
-    <span>{{ currentDate | date: 'dd MMMM yyyy' }}</span>
+    <span>{{ currentDate | date : "dd MMMM yyyy" }}</span>
   </div>
 </header>
 <nav class="app-navigation">
@@ -23,3 +24,8 @@
 <main class="app-main-content">
   <router-outlet></router-outlet>
 </main>
+
+<app-slide-out
+  [isOpen]="isSlideOutOpen$ | async"
+  (closeSlideOut)="closeSlideOut()"
+></app-slide-out>

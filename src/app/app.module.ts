@@ -18,6 +18,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 import localeEs from '@angular/common/locales/es';
+import { SlideOutComponent } from './slide-out/slide-out.component';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -25,6 +26,7 @@ registerLocaleData(localeEs, 'es');
     AppComponent,
     AppProgressBarComponent,
     AppPageNotFoundComponent,
+    SlideOutComponent,
   ],
   imports: [
     BrowserModule,
