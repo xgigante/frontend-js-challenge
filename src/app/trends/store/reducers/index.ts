@@ -32,10 +32,17 @@ export const trendsReducer = createReducer(
   ),
   on(TrendsApiActions.loadOneTrendError, (state): State => {
     return { ...state, selectedTrend: null };
-  })
+  }),
+  on(TrendsApiActions.createTrendSuccess, (state, { trend }) =>
+    adapter.addOne(trend, state)
+  ),
+  on(TrendsApiActions.updateTrendSuccess, (state, { trend }) =>
+    adapter.updateOne({ id: trend.id, changes: trend }, state)
+  ),
+  on(TrendsApiActions.deleteTrendSuccess, (state, { id }) =>
+    adapter.removeOne(id, state)
+  )
 );
-
-export const selectSelectedTrend = (state: State) => state.selectedTrend;
 
 const { selectIds, selectEntities, selectAll, selectTotal } =
   adapter.getSelectors();
@@ -51,3 +58,6 @@ export const selectAllTrends = selectAll;
 
 // select the total trend count
 export const selectTrendTotal = selectTotal;
+
+// select the selected trend from the state.
+export const selectSelectedTrend = (state: State) => state.selectedTrend;
