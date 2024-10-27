@@ -11,7 +11,12 @@
       alt="Logo Avantio Trends PRO"
     />
   </a>
-  <button (click)="openSlideOut()">Crear Noticia</button>
+  <button
+    (click)="openSlideOut()"
+    class="fixed bottom-1/2 right-8 transform translate-y-1/2 bg-primary text-white rounded-full w-18 h-18 flex items-center justify-center shadow-lg hover:bg-primary-dark"
+  >
+    <svg-icon src="assets/Iconos/Actions/add.svg" class="h-6 w-6"></svg-icon>
+  </button>
   <div class="app-current-date">
     <span>{{ currentDate | date : "dd MMMM yyyy" }}</span>
   </div>

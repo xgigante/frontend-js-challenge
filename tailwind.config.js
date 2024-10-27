@@ -10,6 +10,9 @@ module.exports = {
         },
         transparent: "transparent",
       },
+      spacing: {
+        18: "72px", // Añadir tamaño personalizado para el botón de añadir noticia a 72px
+      },
     },
   },
   plugins: [],
