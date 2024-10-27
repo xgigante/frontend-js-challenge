@@ -23,6 +23,7 @@
     "@ngrx/entity": "^14.3.3",
     "@ngrx/router-store": "^14.3.3",
     "@ngrx/store": "^14.3.3",
+    "angular-svg-icon": "^14.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "rxjs": "~7.5.7",
