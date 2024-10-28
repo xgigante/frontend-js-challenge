@@ -3,7 +3,15 @@
   [class.open]="isOpen"
 >
   <div class="flex justify-between items-center mb-4">
-    <h2 class="text-xl font-semibold">Formulario</h2>
+    <h2 class="text-xl font-semibold">
+      {{
+        trendState === "edit"
+          ? "Editar noticia"
+          : trendState === "delete"
+          ? "Borrar noticia"
+          : "Crear noticia"
+      }}
+    </h2>
     <button
       type="button"
       (click)="close()"
@@ -12,47 +20,69 @@
       <img src="assets/Iconos/Actions/close.svg" class="h-6 w-6" alt="Cerrar" />
     </button>
   </div>
-  <form class="flex flex-col h-full">
+  <form class="flex flex-col h-full" *ngIf="trend; else noTrendTemplate">
     <div class="mb-4 mt-10">
-      <label for="url" class="block text-sm font-medium text-gray-700"
-        >URL</label
-      >
-      <input
-        type="url"
-        id="url"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      />
-    </div>
-    <div class="mb-4">
-      <label for="author" class="block text-sm font-medium text-gray-700"
-        >Autor</label
-      >
-      <input
-        type="text"
-        id="author"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      />
-    </div>
-    <div class="mb-4">
       <label for="title" class="block text-sm font-medium text-gray-700"
         >Título</label
       >
       <input
         type="text"
+        [(ngModel)]="trend.title"
         id="title"
+        name="title"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       />
     </div>
-    <div class="flex-grow mb-6">
-      <label for="comment" class="block text-sm font-medium text-gray-700"
-        >Comentario</label
+    <div class="mb-4">
+      <label for="url" class="block text-sm font-medium text-gray-700"
+        >URL Noticia</label
+      >
+      <input
+        type="url"
+        [(ngModel)]="trend.url"
+        id="url"
+        name="url"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="image" class="block text-sm font-medium text-gray-700"
+        >URL Imagen</label
+      >
+      <input
+        type="url"
+        [(ngModel)]="trend.image"
+        id="image"
+        name="image"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="provider" class="block text-sm font-medium text-gray-700"
+        >Proveedor</label
+      >
+      <select
+        id="provider"
+        [(ngModel)]="trend.provider"
+        name="provider"
+        class="mt-1 block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      >
+        <option value="elmundo">El Mundo</option>
+        <option value="elpais">El País</option>
+      </select>
+    </div>
+    <div class="flex-grow mb-4">
+      <label for="body" class="block text-sm font-medium text-gray-700"
+        >Descripción</label
       >
       <textarea
-        id="comment"
+        id="body"
+        name="body"
+        [(ngModel)]="trend.body"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-full resize-none"
       ></textarea>
     </div>
-    <div class="flex justify-end mt-4 mb-8">
+    <div class="flex justify-end mt-6 mb-8">
       <button
         type="button"
         (click)="close()"
@@ -61,13 +91,28 @@
         Cancelar
       </button>
       <button
+        *ngIf="trendState !== 'delete'"
         type="submit"
         class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded"
       >
         Guardar
       </button>
+      <button
+        *ngIf="trendState === 'delete'"
+        type="button"
+        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Borrar
+      </button>
     </div>
   </form>
+  <ng-template #noTrendTemplate>
+    <div class="flex flex-col h-full justify-center items-center">
+      <p class="text-gray-500 text-lg">
+        No hay datos disponibles para mostrar.
+      </p>
+    </div>
+  </ng-template>
 </div>
 <div
   class="slide-out__overlay bg-black z-10 fixed top-0 w-full h-full"

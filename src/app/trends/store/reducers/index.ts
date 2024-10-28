@@ -37,7 +37,9 @@ export const trendsReducer = createReducer(
     adapter.addOne(trend, state)
   ),
   on(TrendsApiActions.updateTrendSuccess, (state, { trend }) =>
-    adapter.updateOne({ id: trend.id, changes: trend }, state)
+    trend.id
+      ? adapter.updateOne({ id: trend.id, changes: trend }, state)
+      : state
   ),
   on(TrendsApiActions.deleteTrendSuccess, (state, { id }) =>
     adapter.removeOne(id, state)

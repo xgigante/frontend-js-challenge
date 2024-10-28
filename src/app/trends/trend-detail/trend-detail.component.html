@@ -5,14 +5,18 @@
 <article class="trend__detail" *ngIf="trend$ | async as trend">
   <header class="trend__header">
     <div class="trend__actions">
-      <button type="button" class="trend__action" (click)="openSlideOut()">
+      <button
+        type="button"
+        class="trend__action"
+        (click)="openSlideOut(true, trend)"
+      >
         <img src="assets/Iconos/Actions/edit.svg" alt="Editar noticia" />
       </button>
       <button type="button" class="trend__action">
         <img
           src="assets/Iconos/Actions/delete.svg"
           alt="Borrar noticia"
-          (click)="openSlideOut()"
+          (click)="openSlideOut(false, trend)"
         />
       </button>
     </div>
