@@ -20,7 +20,7 @@
       <img src="assets/Iconos/Actions/close.svg" class="h-6 w-6" alt="Cerrar" />
     </button>
   </div>
-  <form class="flex flex-col h-full" *ngIf="trend; else noTrendTemplate">
+  <div class="flex flex-col h-full" *ngIf="trend; else noTrendTemplate">
     <div class="mb-4 mt-10">
       <label for="title" class="block text-sm font-medium text-gray-700"
         >Título</label
@@ -30,6 +30,7 @@
         [(ngModel)]="trend.title"
         id="title"
         name="title"
+        [disabled]="trendState === 'delete'"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       />
     </div>
@@ -42,6 +43,7 @@
         [(ngModel)]="trend.url"
         id="url"
         name="url"
+        [disabled]="trendState === 'delete'"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       />
     </div>
@@ -54,6 +56,7 @@
         [(ngModel)]="trend.image"
         id="image"
         name="image"
+        [disabled]="trendState === 'delete'"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       />
     </div>
@@ -62,6 +65,7 @@
         >Proveedor</label
       >
       <select
+        *ngIf="trendState !== 'delete'"
         id="provider"
         [(ngModel)]="trend.provider"
         name="provider"
@@ -70,6 +74,15 @@
         <option value="elmundo">El Mundo</option>
         <option value="elpais">El País</option>
       </select>
+      <input
+        *ngIf="trendState === 'delete'"
+        type="provider"
+        [(ngModel)]="trend.provider"
+        id="provider"
+        name="provider"
+        [disabled]="trendState === 'delete'"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
     </div>
     <div class="flex-grow mb-4">
       <label for="body" class="block text-sm font-medium text-gray-700"
@@ -78,6 +91,7 @@
       <textarea
         id="body"
         name="body"
+        [disabled]="trendState === 'delete'"
         [(ngModel)]="trend.body"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-full resize-none"
       ></textarea>
@@ -92,7 +106,7 @@
       </button>
       <button
         *ngIf="trendState !== 'delete'"
-        type="submit"
+        type="button"
         class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded"
       >
         Guardar
@@ -100,12 +114,13 @@
       <button
         *ngIf="trendState === 'delete'"
         type="button"
-        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        (click)="openDeleteModal()"
+        class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded"
       >
         Borrar
       </button>
     </div>
-  </form>
+  </div>
   <ng-template #noTrendTemplate>
     <div class="flex flex-col h-full justify-center items-center">
       <p class="text-gray-500 text-lg">
@@ -120,3 +135,10 @@
   [ngClass]="{ 'bg-black bg-opacity-50': isOpen }"
   (click)="close()"
 ></div>
+
+<app-confirm-delete-modal
+  *ngIf="showDeleteModal"
+  (confirm)="confirmDelete()"
+  (cancel)="cancelDelete()"
+  >Hola</app-confirm-delete-modal
+>

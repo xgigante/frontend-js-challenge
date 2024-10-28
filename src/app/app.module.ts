@@ -20,6 +20,7 @@ import { environment } from '../environments/environment';
 import localeEs from '@angular/common/locales/es';
 import { SlideOutComponent } from './slide-out/slide-out.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { SlideOutModule } from './slide-out/slide-out.module';
 import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localeEs, 'es');
@@ -46,6 +47,7 @@ registerLocaleData(localeEs, 'es');
       logOnly: environment.production,
     }),
     AngularSvgIconModule.forRoot(),
+    SlideOutModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, httpInterceptorProviders],
   bootstrap: [AppComponent],

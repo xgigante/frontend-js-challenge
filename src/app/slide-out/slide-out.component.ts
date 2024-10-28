@@ -16,6 +16,7 @@ export class SlideOutComponent implements OnInit {
   @Output() closeSlideOut: EventEmitter<void> = new EventEmitter<void>();
   trend: Trend | undefined;
   trendState: TrendStateTypes = TrendStateEnum.New;
+  showDeleteModal: boolean = false;
 
   constructor(private slideOutService: SlideOutService) {}
 
@@ -36,5 +37,34 @@ export class SlideOutComponent implements OnInit {
    */
   close(): void {
     this.closeSlideOut.emit();
+  }
+
+  /**
+   * Opens the delete modal by setting the `showDeleteModal` property to true.
+   */
+  openDeleteModal() {
+    this.showDeleteModal = true;
+  }
+
+  /**
+   * Confirms the deletion of a trend. If a trend with an ID exists, it logs the deletion
+   * and closes the slide-out component. Regardless of whether a trend exists, it hides
+   * the delete confirmation modal.
+   */
+  confirmDelete(): void {
+    if (this.trend && this.trend.id) {
+      console.log(`Deleting trend: ${this.trend.id}`);
+      this.close();
+    }
+    this.showDeleteModal = false;
+  }
+
+  /**
+   * Cancels the delete operation by hiding the delete confirmation modal
+   * and closing the slide-out component.
+   */
+  cancelDelete(): void {
+    this.showDeleteModal = false;
+    this.close();
   }
 }
