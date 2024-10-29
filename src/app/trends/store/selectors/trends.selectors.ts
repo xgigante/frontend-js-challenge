@@ -40,3 +40,8 @@ export const selectSelectedTrend = createSelector(
   selectTrendsState,
   fromTrendsReducer.selectSelectedTrend
 );
+
+export const cleanSelectedTrend = createSelector(
+  selectSelectedTrend,
+  (trend) => trend || null
+);

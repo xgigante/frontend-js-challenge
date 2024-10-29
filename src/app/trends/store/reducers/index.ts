@@ -43,7 +43,11 @@ export const trendsReducer = createReducer(
   ),
   on(TrendsApiActions.deleteTrendSuccess, (state, { id }) =>
     adapter.removeOne(id, state)
-  )
+  ),
+  on(TrendsApiActions.clearSelectedTrend, (state) => ({
+    ...state,
+    selectedTrend: null,
+  }))
 );
 
 const { selectIds, selectEntities, selectAll, selectTotal } =

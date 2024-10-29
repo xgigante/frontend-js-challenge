@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { selectSelectedTrend } from '../store/selectors';
 import { SlideOutService } from '../../slide-out/slide-out.service';
 import { Trend } from '../models/trend.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { TrendStateEnum } from '../models/trend-states.model';
+import { clearSelectedTrend } from '../store/actions/trends-api.actions';
 
 @Component({
   selector: 'app-trend-detail',
@@ -28,5 +28,14 @@ export class TrendDetailComponent {
   openSlideOut(editMode: boolean, trend?: Trend): void {
     this.trendState = editMode ? TrendStateEnum.Edit : TrendStateEnum.Delete;
     this.slideOutService.openSlideOut(trend, this.trendState);
+  }
+
+  /**
+   * This method performs cleanup by unsubscribing from the trendSubscription
+   * to prevent memory leaks and dispatches an action to clear the selected trend
+   * from the store.
+   */
+  ngOnDestroy(): void {
+    this.store.dispatch(clearSelectedTrend());
   }
 }
