@@ -3,15 +3,15 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular', 'viewport'],
+    basePath: "",
+    frameworks: ["jasmine", "@angular-devkit/build-angular", "viewport"],
     plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma'),
-      require('karma-viewport'),
+      require("karma-jasmine"),
+      require("karma-chrome-launcher"),
+      require("karma-jasmine-html-reporter"),
+      require("karma-coverage"),
+      require("@angular-devkit/build-angular/plugins/karma"),
+      require("karma-viewport"),
     ],
     client: {
       jasmine: {
@@ -26,40 +26,40 @@ module.exports = function (config) {
       suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(
+      dir: require("path").join(
         __dirname,
-        './coverage/frontend-angular-challenge'
+        "./coverage/frontend-angular-challenge"
       ),
-      subdir: '.',
-      reporters: [{ type: 'html' }, { type: 'text-summary' }],
+      subdir: ".",
+      reporters: [{ type: "html" }, { type: "text-summary" }],
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ["Chrome"],
     singleRun: false,
     restartOnFileChange: true,
     // Viewport configuration
     viewport: {
       breakpoints: [
         {
-          name: 'small-screen',
+          name: "small-screen",
           size: {
             width: 320,
             height: 480,
           },
         },
         {
-          name: 'medium-screen',
+          name: "medium-screen",
           size: {
             width: 768,
             height: 1024,
           },
         },
         {
-          name: 'large-screen',
+          name: "large-screen",
           size: {
             width: 1440,
             height: 900,
