@@ -19,6 +19,7 @@ import {
 })
 export class SlideOutComponent implements OnInit {
   @Input() isOpen: boolean | null = false;
+  @Input() isSmallScreen: boolean | null = false;
   @Output() closeSlideOut: EventEmitter<void> = new EventEmitter<void>();
   trend: Trend | undefined;
   trendState: TrendStateTypes = TrendStateEnum.New;
@@ -177,7 +178,7 @@ export class SlideOutComponent implements OnInit {
       image: 'Url Imagen',
       url: 'URL Noticia',
     };
-    this.errorMessage = `El siguiente campo es requerido: ${
+    this.errorMessage = `Se requiere información en este campo: ${
       fieldNames[field] || field
     }`;
   }

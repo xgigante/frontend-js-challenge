@@ -1,6 +1,10 @@
 <div
-  class="slide-out__content fixed z-20 top-0 w-[491px] h-full bg-white p-9 shadow-lg rounded-tl-3xl"
+  class="slide-out__content fixed z-20 top-0 h-full bg-white p-9 shadow-lg"
   [class.open]="isOpen"
+  [ngClass]="{
+    'w-full': isSmallScreen,
+    'w-[491px] rounded-tl-3xl': !isSmallScreen
+  }"
 >
   <div class="flex justify-between items-center mb-4">
     <h2 class="text-xl font-semibold">

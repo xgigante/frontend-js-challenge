@@ -7,28 +7,32 @@
       alt="Logo Avantio Trends PRO"
     />
   </a>
-  <button
-    (click)="openSlideOut()"
-    class="fixed bottom-1/2 right-6 transform translate-y-1/2 bg-primary text-white rounded-full w-18 h-18 flex items-center justify-center shadow-lg hover:bg-primary-dark z-10"
-  >
-    <svg-icon src="assets/Iconos/Actions/add.svg" class="h-6 w-6"></svg-icon>
-  </button>
+
   <div class="app-current-date">
     <span>{{ currentDate | date : "dd MMMM yyyy" }}</span>
   </div>
 </header>
+
 <nav class="app-navigation">
   <app-menu-small *ngIf="isSmallScreen$ | async"></app-menu-small>
   <app-menu-medium *ngIf="isMediumScreen$ | async"></app-menu-medium>
   <app-menu-large *ngIf="isLargeScreen$ | async"></app-menu-large>
 </nav>
+
 <main class="app-main-content">
+  <button
+    (click)="openSlideOut()"
+    class="app-main-content_button fixed bottom-1/2 right-8 transform translate-y-1/2 bg-primary text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-primary-dark z-10"
+  >
+    <svg-icon src="assets/Iconos/Actions/add.svg" class="h-6 w-6"></svg-icon>
+  </button>
   <router-outlet></router-outlet>
 </main>
 
 <app-slide-out
-  [isOpen]="isSlideOutOpen$ | async"
   (closeSlideOut)="closeSlideOut()"
+  [isOpen]="isSlideOutOpen$ | async"
+  [isSmallScreen]="isSmallScreen$ | async"
 ></app-slide-out>
 
 <app-loading *ngIf="isLoading$ | async"></app-loading>
