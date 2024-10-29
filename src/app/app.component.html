@@ -1,7 +1,3 @@
-<app-progress-bar
-  *ngIf="isLoading$ | async"
-  class="app-progress-bar"
-></app-progress-bar>
 <header class="app-header">
   <a routerLink="/">
     <img
@@ -34,3 +30,5 @@
   [isOpen]="isSlideOutOpen$ | async"
   (closeSlideOut)="closeSlideOut()"
 ></app-slide-out>
+
+<app-loading *ngIf="isLoading$ | async"></app-loading>

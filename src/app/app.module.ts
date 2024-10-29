@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout';
 import { AppMenuModule } from './menu';
 import { AppPageNotFoundComponent } from './app-page-not-found.component';
-import { AppProgressBarComponent } from './app-progress-bar.component';
+import { AppLoadingComponent } from './app-loading.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppTrendsModule } from './trends';
 import { httpInterceptorProviders } from './app-http-interceptors';
@@ -28,7 +28,7 @@ registerLocaleData(localeEs, 'es');
 @NgModule({
   declarations: [
     AppComponent,
-    AppProgressBarComponent,
+    AppLoadingComponent,
     AppPageNotFoundComponent,
     SlideOutComponent,
   ],
