@@ -7,17 +7,23 @@
     <div class="trend__actions">
       <button
         type="button"
-        class="trend__action"
+        class="w-13 h-13 bg-primary bg-opacity-20 rounded-full flex items-center justify-center text-primary mb-1 ml-1 hover:bg-primary hover:text-white"
         (click)="openSlideOut(true, trend)"
       >
-        <img src="assets/Iconos/Actions/edit.svg" alt="Editar noticia" />
+        <svg-icon
+          src="assets/Iconos/Actions/edit.svg"
+          alt="Editar noticia"
+        ></svg-icon>
       </button>
-      <button type="button" class="trend__action">
-        <img
+      <button
+        type="button"
+        class="w-13 h-13 bg-primary bg-opacity-20 rounded-full flex items-center justify-center text-primary mb-1 ml-1 hover:bg-primary hover:text-white"
+        (click)="openSlideOut(false, trend)"
+      >
+        <svg-icon
           src="assets/Iconos/Actions/delete.svg"
           alt="Borrar noticia"
-          (click)="openSlideOut(false, trend)"
-        />
+        ></svg-icon>
       </button>
     </div>
     <img class="trend__image" [src]="trend.image" alt="trend.title" />

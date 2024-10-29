@@ -1,9 +1,23 @@
-@use 'sass:color';
-@import 'settings/variables';
+@use "sass:color";
+@import "settings/variables";
 
 .link-to-home {
-  display: none;
-  visibility: hidden;
+  text-decoration: none;
+  color: $accent;
+  display: flex;
+  visibility: visible;
+  align-items: center;
+  margin-bottom: 2.625rem;
+  position: absolute;
+
+  & > img {
+    width: 2rem;
+    margin-right: 0.75rem;
+  }
+
+  & > span {
+    font-size: 0.875rem;
+  }
 }
 
 .trend__detail {
@@ -16,27 +30,6 @@
   display: flex;
   justify-content: flex-end;
   padding-bottom: 0.875rem;
-}
-
-.trend__action {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2rem;
-  border: none;
-  margin: 0;
-  margin-left: 0.75rem;
-  padding: 0;
-  text-align: center;
-  background-color: color.scale($primary, $alpha: -80%);
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  & > img {
-    width: 50%;
-    vertical-align: bottom;
-  }
 }
 
 .trend__image {
@@ -73,8 +66,8 @@
   }
 
   &::after {
-    content: '';
-    background: url('/assets/Iconos/Actions/link.svg') no-repeat;
+    content: "";
+    background: url("/assets/Iconos/Actions/link.svg") no-repeat;
     background-size: cover;
     width: 0.75rem;
     height: 0.75rem;
@@ -93,6 +86,10 @@
 }
 
 @media screen and (min-width: 768px) {
+  .link-to-home {
+    position: relative;
+  }
+
   .trend__detail {
     margin-bottom: 1rem;
   }
@@ -107,17 +104,6 @@
     padding: 0;
     justify-content: flex-start;
     padding-left: 2.03125rem;
-  }
-
-  .trend__action {
-    margin: 0;
-    width: 3.25rem;
-    height: 3.25rem;
-    margin-bottom: 1rem;
-
-    & > img {
-      width: 40%;
-    }
   }
 
   .trend__image {
@@ -142,24 +128,6 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .link-to-home {
-    text-decoration: none;
-    color: $accent;
-    display: flex;
-    visibility: visible;
-    align-items: center;
-    margin-bottom: 2.625rem;
-
-    & > img {
-      width: 2rem;
-      margin-right: 0.75rem;
-    }
-
-    & > span {
-      font-size: 0.875rem;
-    }
-  }
-
   .trend__actions {
     padding-left: 2.9375rem;
   }

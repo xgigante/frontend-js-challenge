@@ -1,4 +1,4 @@
-@import 'settings/variables';
+@import "settings/variables";
 
 :host {
   display: flex;
@@ -10,8 +10,6 @@
 }
 
 .menu__logo {
-  width: 10.831875rem;
-  margin-top: 4.953560371517028vh;
   padding-left: 2rem;
 
   &:active {

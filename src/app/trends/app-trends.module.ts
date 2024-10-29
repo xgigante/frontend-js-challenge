@@ -11,6 +11,7 @@ import { TrendService } from './trend.service';
 import { TrendsListComponent } from './trends-list/trends-list.component';
 import { trendsEffects } from './store/effects';
 import { trendsFeatureKey, trendsReducer } from './store/reducers';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   declarations: [TrendsListComponent, TrendDetailComponent],
@@ -20,6 +21,7 @@ import { trendsFeatureKey, trendsReducer } from './store/reducers';
     HttpClientModule,
     StoreModule.forFeature(trendsFeatureKey, trendsReducer),
     EffectsModule.forFeature(trendsEffects),
+    AngularSvgIconModule,
   ],
   exports: [TrendsListComponent],
   providers: [

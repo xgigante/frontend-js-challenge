@@ -12,6 +12,7 @@ module.exports = {
       },
       spacing: {
         18: "72px", // Añadir tamaño personalizado para el botón de añadir noticia a 72px
+        13: "52px", // Añadir tamaño personalizado para el botón de editar o borrar noticia a 52px
       },
     },
   },
