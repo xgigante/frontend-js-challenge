@@ -7,16 +7,10 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import * as TrendsApiActions from '../actions/trends-api.actions';
 import * as TrendsListPageActions from '../actions/trends-list-page.actions';
 import { TrendService } from '../../trend.service';
-import { HttpClient } from '@angular/common/http';
-import { Trend } from '../../models/trend.model';
 
 @Injectable()
 export class TrendsEffects {
-  constructor(
-    private actions$: Actions,
-    private trendService: TrendService,
-    private http: HttpClient
-  ) {}
+  constructor(private actions$: Actions, private trendService: TrendService) {}
 
   loadTrends$ = createEffect(() => {
     return this.actions$.pipe(
@@ -44,50 +38,39 @@ export class TrendsEffects {
     );
   });
 
-  createTrend$ = createEffect(() =>
-    this.actions$.pipe(
+  createTrend$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(TrendsApiActions.createTrend),
       mergeMap((action) =>
-        this.http.post<{ trend: Trend }>('/v1/trends', action.trend).pipe(
-          map((response) =>
-            TrendsApiActions.createTrendSuccess({ trend: response.trend })
-          ),
-          catchError(() => of({ type: '[Trend] Create Trend Failure' }))
+        this.trendService.createTrend(action.trend).pipe(
+          map((trend) => TrendsApiActions.createTrendSuccess({ trend })),
+          catchError(() => of(TrendsApiActions.createTrendError()))
         )
       )
-    )
-  );
+    );
+  });
 
-  updateTrend$ = createEffect(() =>
-    this.actions$.pipe(
+  updateTrend$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(TrendsApiActions.updateTrend),
       mergeMap((action) =>
-        this.http
-          .put<{ modified: number }>(
-            `/v1/trends/${action.trend.id}`,
-            action.trend
-          )
-          .pipe(
-            map(() =>
-              TrendsApiActions.updateTrendSuccess({
-                trend: { ...action.trend, id: action.trend.id } as Trend,
-              })
-            ),
-            catchError(() => of({ type: '[Trend] Update Trend Failure' }))
-          )
-      )
-    )
-  );
-
-  deleteTrend$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(TrendsApiActions.deleteTrend),
-      mergeMap((action) =>
-        this.http.delete<{ success: boolean }>(`/v1/trends/${action.id}`).pipe(
-          map(() => TrendsApiActions.deleteTrendSuccess({ id: action.id })),
-          catchError(() => of({ type: '[Trend] Delete Trend Failure' }))
+        this.trendService.updateTrend(action.trend).pipe(
+          map((trend) => TrendsApiActions.updateTrendSuccess({ trend })),
+          catchError(() => of(TrendsApiActions.updateTrendError()))
         )
       )
-    )
-  );
+    );
+  });
+
+  deleteTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendsApiActions.deleteTrend),
+      mergeMap((action) =>
+        this.trendService.deleteTrend(action.id).pipe(
+          map(() => TrendsApiActions.deleteTrendSuccess({ id: action.id })),
+          catchError(() => of(TrendsApiActions.deleteTrendError()))
+        )
+      )
+    );
+  });
 }

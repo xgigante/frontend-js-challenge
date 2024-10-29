@@ -14,7 +14,7 @@
     </h2>
     <button
       type="button"
-      (click)="close()"
+      (click)="closeSlide()"
       class="text-gray-500 hover:text-gray-700"
     >
       <img src="assets/Iconos/Actions/close.svg" class="h-6 w-6" alt="Cerrar" />
@@ -96,10 +96,13 @@
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-full resize-none"
       ></textarea>
     </div>
+    <div *ngIf="errorMessage" class="mt-4 text-red-400">
+      {{ errorMessage }}
+    </div>
     <div class="flex justify-end mt-6 mb-8">
       <button
         type="button"
-        (click)="close()"
+        (click)="closeSlide()"
         class="bg-transparent border-transparent text-gray-700 font-bold py-2 px-4 rounded mr-2"
       >
         Cancelar
@@ -107,6 +110,7 @@
       <button
         *ngIf="trendState !== 'delete'"
         type="button"
+        (click)="saveTrend(trendState)"
         class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded"
       >
         Guardar
@@ -133,7 +137,7 @@
   class="slide-out__overlay bg-black z-10 fixed top-0 w-full h-full"
   [class.open]="isOpen"
   [ngClass]="{ 'bg-black bg-opacity-50': isOpen }"
-  (click)="close()"
+  (click)="closeSlide()"
 ></div>
 
 <app-confirm-delete-modal

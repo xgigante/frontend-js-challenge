@@ -5,6 +5,12 @@ import {
   TrendStateEnum,
   TrendStateTypes,
 } from '../trends/models/trend-states.model';
+import { Store } from '@ngrx/store';
+import {
+  createTrend,
+  updateTrend,
+  deleteTrend,
+} from '../trends/store/actions/trends-api.actions';
 
 @Component({
   selector: 'app-slide-out',
@@ -17,8 +23,9 @@ export class SlideOutComponent implements OnInit {
   trend: Trend | undefined;
   trendState: TrendStateTypes = TrendStateEnum.New;
   showDeleteModal: boolean = false;
+  errorMessage: string | null = null;
 
-  constructor(private slideOutService: SlideOutService) {}
+  constructor(private slideOutService: SlideOutService, private store: Store) {}
 
   /**
    * Lifecycle hook that is called after data-bound properties of a directive are initialized.
@@ -35,8 +42,9 @@ export class SlideOutComponent implements OnInit {
   /**
    * Closes the slide-out component by emitting the `closeSlideOut` event.
    */
-  close(): void {
+  closeSlide(): void {
     this.closeSlideOut.emit();
+    this.errorMessage = null;
   }
 
   /**
@@ -52,9 +60,10 @@ export class SlideOutComponent implements OnInit {
    * the delete confirmation modal.
    */
   confirmDelete(): void {
-    if (this.trend && this.trend.id) {
+    if (this.trend?.id) {
       console.log(`Deleting trend: ${this.trend.id}`);
-      this.close();
+      this.deleteTrend();
+      this.closeSlide();
     }
     this.showDeleteModal = false;
   }
@@ -65,6 +74,119 @@ export class SlideOutComponent implements OnInit {
    */
   cancelDelete(): void {
     this.showDeleteModal = false;
-    this.close();
+    this.closeSlide();
+  }
+
+  /**
+   * Saves the current trend based on its state.
+   * @param {TrendStateTypes} state - The state of the trend, indicating whether it is new or existing.
+   */
+  saveTrend(state: TrendStateTypes): void {
+    if (this.isTrendValid(this.trend)) {
+      state === TrendStateEnum.New ? this.createTrend() : this.updateTrend();
+    } else {
+      console.error('Trend is invalid. Unable to save.');
+    }
+  }
+
+  /**
+   * Creates a trend if the trend property is defined.
+   * Dispatches the createTrend action with the current trend.
+   * Resets the error message after dispatching the action.
+   */
+  private createTrend(): void {
+    if (this.trend) {
+      this.store.dispatch(createTrend({ trend: this.trend }));
+      this.resetErrorMessage();
+    }
+  }
+
+  /**
+   * Updates the current trend by dispatching an action to the store.
+   * If the trend is defined, it will dispatch the `updateTrend` action with the current trend.
+   */
+  private updateTrend(): void {
+    if (this.trend) {
+      this.store.dispatch(updateTrend({ trend: this.trend }));
+    }
+  }
+
+  /**
+   * Deletes the current trend if it has a valid ID.
+   * Dispatches a delete action to the store with the trend's ID.
+   * Logs an error to the console if the trend ID is undefined.
+   */
+  private deleteTrend(): void {
+    if (this.trend?.id) {
+      this.store.dispatch(deleteTrend({ id: this.trend.id }));
+    } else {
+      console.error('Trend ID is undefined. Unable to delete trend.');
+    }
+  }
+
+  /**
+   * Validates if the given trend object contains all required fields and if those fields are valid.
+   * @param trend - The trend object to validate. This parameter is optional.
+   * @returns `true` if the trend object is valid, otherwise `false`.
+   */
+  private isTrendValid(trend?: Trend): boolean {
+    const requiredFields: (keyof Trend)[] = [
+      'title',
+      'body',
+      'provider',
+      'image',
+      'url',
+    ];
+
+    for (const field of requiredFields) {
+      const value = trend?.[field];
+      if (!this.isFieldValid(value)) {
+        this.setErrorMessage(field);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Checks if the provided value is valid.
+   *
+   * A value is considered valid if it is not `undefined` and:
+   * - If it is an array, it has at least one element.
+   * - If it is a string, it is not empty after trimming whitespace.
+   *
+   * @param value - The value to be checked for validity.
+   * @returns `true` if the value is valid, `false` otherwise.
+   */
+  private isFieldValid(value: any): boolean {
+    return (
+      value !== undefined &&
+      (Array.isArray(value) ? value.length > 0 : value.trim() !== '')
+    );
+  }
+
+  /**
+   * Sets an error message indicating which field is required.
+   * @param field - The key of the field in the Trend object that is required.
+   */
+  private setErrorMessage(field: keyof Trend): void {
+    const fieldNames: Record<string, string> = {
+      title: 'Título',
+      body: 'Descripción',
+      provider: 'Proveedor',
+      image: 'Url Imagen',
+      url: 'URL Noticia',
+    };
+    this.errorMessage = `El siguiente campo es requerido: ${
+      fieldNames[field] || field
+    }`;
+  }
+
+  /**
+   * Resets the error message to null.
+   * This method is used to clear any existing error messages.
+   */
+  private resetErrorMessage(): void {
+    this.errorMessage = null;
   }
 }

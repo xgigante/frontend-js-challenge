@@ -26,6 +26,8 @@ export const createTrendSuccess = createAction(
   props<{ trend: Trend }>()
 );
 
+export const createTrendError = createAction('[Trend] Create Trend Error');
+
 export const updateTrend = createAction(
   '[Trend] Update Trend',
   props<{ trend: Partial<Trend> }>()
@@ -35,11 +37,18 @@ export const updateTrendSuccess = createAction(
   props<{ trend: Trend }>()
 );
 
+export const updateTrendError = createAction('[Trend] Update Trend Error');
+
 export const deleteTrend = createAction(
   '[Trend] Delete Trend',
   props<{ id: string }>()
 );
+
 export const deleteTrendSuccess = createAction(
   '[Trend] Delete Trend Success',
   props<{ id: string }>()
 );
+
+export const deleteTrendError = createAction('[Trend] Delete Trend Error');
+
+export const clearSelectedTrend = createAction('[Trend] Clear Selected Trend');

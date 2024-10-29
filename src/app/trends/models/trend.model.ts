@@ -7,5 +7,5 @@ export interface Trend {
   provider: TrendProvider;
   image: string;
   url: string;
-  createdAt: Date;
+  createdAt?: Date;
 }

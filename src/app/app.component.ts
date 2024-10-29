@@ -29,13 +29,11 @@ export class AppComponent {
     .pipe(delay(0));
   isSlideOutOpen$: Observable<boolean> = this.slideOutService.isOpen$;
   selectedTrend: Trend = {
-    id: '',
     title: '',
     body: [],
     provider: TrendProviderEnum.ElMundo,
     image: '',
     url: '',
-    createdAt: new Date(),
   };
 
   constructor(
