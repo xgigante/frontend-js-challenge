@@ -1,4 +1,4 @@
-@import 'settings/variables';
+@import "settings/variables";
 
 .trend {
   width: 100%;
@@ -42,7 +42,7 @@
     margin-bottom: 0.75rem;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       right: 0;
@@ -99,8 +99,14 @@
   .trend {
     width: 32%;
     display: inline-flex;
-    &:not(:last-of-type) {
+
+    &:nth-of-type(3n + 1),
+    &:nth-of-type(3n + 2) {
       margin-right: 2%;
+    }
+
+    &:nth-of-type(3n) {
+      margin-right: 0;
     }
 
     .trend__image {
@@ -175,8 +181,13 @@
   .trend {
     width: 32%;
     display: inline-flex;
-    &:not(:last-of-type) {
+    &:nth-of-type(3n + 1),
+    &:nth-of-type(3n + 2) {
       margin-right: 2%;
+    }
+
+    &:nth-of-type(3n) {
+      margin-right: 0;
     }
 
     .trend__image {

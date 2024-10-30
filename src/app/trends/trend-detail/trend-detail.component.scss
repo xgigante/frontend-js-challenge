@@ -64,17 +64,6 @@
   &:active {
     text-decoration: underline;
   }
-
-  &::after {
-    content: "";
-    background: url("/assets/Iconos/Actions/link.svg") no-repeat;
-    background-size: cover;
-    width: 0.75rem;
-    height: 0.75rem;
-    position: absolute;
-    right: -1rem;
-    bottom: 0.2rem;
-  }
 }
 
 .trend__paragraph {
@@ -113,10 +102,6 @@
   .trend__title {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
-  }
-
-  .trend__link::after {
-    bottom: 0.4rem;
   }
 
   .trend__content {
