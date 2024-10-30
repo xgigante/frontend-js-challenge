@@ -26,11 +26,14 @@ export const createTrendSuccess = createAction(
   props<{ trend: Trend }>()
 );
 
-export const createTrendError = createAction('[Trend] Create Trend Error');
+export const createTrendError = createAction(
+  '[Trend] Create Trend Error',
+  props<{ error: any }>()
+);
 
 export const updateTrend = createAction(
   '[Trend] Update Trend',
-  props<{ trend: Partial<Trend> }>()
+  props<{ id: string | undefined; trend: Partial<Trend> }>()
 );
 export const updateTrendSuccess = createAction(
   '[Trend] Update Trend Success',

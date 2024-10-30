@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectSelectedTrend } from '../store/selectors';
+import { Observable } from 'rxjs';
+
 import { SlideOutService } from '../../slide-out/slide-out.service';
-import { Trend } from '../models/trend.model';
-import { Observable, Subscription } from 'rxjs';
 import { TrendStateEnum } from '../models/trend-states.model';
+import { Trend } from '../models/trend.model';
 import { clearSelectedTrend } from '../store/actions/trends-api.actions';
+import { selectSelectedTrend } from '../store/selectors';
 
 @Component({
   selector: 'app-trend-detail',
@@ -13,7 +14,7 @@ import { clearSelectedTrend } from '../store/actions/trends-api.actions';
   styleUrls: ['./trend-detail.component.scss'],
 })
 export class TrendDetailComponent {
-  protected trend$: Observable<Trend | null> =
+  protected trend$: Observable<Trend | null | undefined> =
     this.store.select(selectSelectedTrend);
   isSlideOutOpen: boolean = false;
   public trendState: TrendStateEnum | null = null;

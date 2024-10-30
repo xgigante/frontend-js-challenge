@@ -1,16 +1,28 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
-import { routerNavigationAction } from '@ngrx/router-store';
 
 import * as TrendsApiActions from '../actions/trends-api.actions';
 import * as TrendsListPageActions from '../actions/trends-list-page.actions';
 import { TrendService } from '../../trend.service';
+import { routerNavigationAction } from '@ngrx/router-store';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TrendsEffects {
-  constructor(private actions$: Actions, private trendService: TrendService) {}
+  constructor(
+    private actions$: Actions,
+    private trendService: TrendService,
+    private router: Router
+  ) {}
 
   loadTrends$ = createEffect(() => {
     return this.actions$.pipe(
@@ -44,17 +56,31 @@ export class TrendsEffects {
       mergeMap((action) =>
         this.trendService.createTrend(action.trend).pipe(
           map((trend) => TrendsApiActions.createTrendSuccess({ trend })),
-          catchError(() => of(TrendsApiActions.createTrendError()))
+          catchError((error) => {
+            console.log(error);
+            return of(TrendsApiActions.createTrendError({ error }));
+          })
         )
       )
     );
   });
 
+  createTrendSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TrendsApiActions.createTrendSuccess),
+        tap(() => {
+          this.router.navigate(['/trends']);
+        })
+      ),
+    { dispatch: false }
+  );
+
   updateTrend$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TrendsApiActions.updateTrend),
       mergeMap((action) =>
-        this.trendService.updateTrend(action.trend).pipe(
+        this.trendService.updateTrend(action.id, action.trend).pipe(
           map((trend) => TrendsApiActions.updateTrendSuccess({ trend })),
           catchError(() => of(TrendsApiActions.updateTrendError()))
         )
@@ -73,4 +99,15 @@ export class TrendsEffects {
       )
     );
   });
+
+  deleteTrendSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TrendsApiActions.deleteTrendSuccess),
+        tap(() => {
+          this.router.navigate(['/trends']);
+        })
+      ),
+    { dispatch: false }
+  );
 }

@@ -1,7 +1,7 @@
 import { TrendProvider } from './trend-provider.model';
 
 export interface Trend {
-  id?: string;
+  _id?: string;
   title: string;
   body: string[];
   provider: TrendProvider;

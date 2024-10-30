@@ -10,7 +10,9 @@ export interface State extends EntityState<Trend> {
   selectedTrend: Trend | null;
 }
 
-export const adapter: EntityAdapter<Trend> = createEntityAdapter<Trend>();
+export const adapter: EntityAdapter<Trend> = createEntityAdapter<Trend>({
+  selectId: (entity: Trend) => entity._id || '',
+});
 
 export const initialState: State = adapter.getInitialState({
   selectedTrend: null,
@@ -36,9 +38,14 @@ export const trendsReducer = createReducer(
   on(TrendsApiActions.createTrendSuccess, (state, { trend }) =>
     adapter.addOne(trend, state)
   ),
+  on(TrendsApiActions.updateTrend, (state, { trend }) => {
+    return trend._id
+      ? adapter.updateOne({ id: trend._id, changes: trend }, state)
+      : state;
+  }),
   on(TrendsApiActions.updateTrendSuccess, (state, { trend }) =>
-    trend.id
-      ? adapter.updateOne({ id: trend.id, changes: trend }, state)
+    trend._id
+      ? adapter.updateOne({ id: trend._id, changes: trend }, state)
       : state
   ),
   on(TrendsApiActions.deleteTrendSuccess, (state, { id }) =>
@@ -67,3 +74,5 @@ export const selectTrendTotal = selectTotal;
 
 // select the selected trend from the state.
 export const selectSelectedTrend = (state: State) => state.selectedTrend;
+
+export const selectUpdateTrend = (state: State) => state.entities;
